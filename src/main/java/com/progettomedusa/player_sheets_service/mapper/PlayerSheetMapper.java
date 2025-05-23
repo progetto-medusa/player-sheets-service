@@ -1,10 +1,10 @@
 package com.progettomedusa.player_sheets_service.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.progettomedusa.player_sheets_service.dto.PlayerSheetDTO;
 import com.progettomedusa.player_sheets_service.model.PlayerSheetsModel;
-
-import java.util.Objects;
-
+@Component
 public class PlayerSheetMapper {
 
     public static PlayerSheetsModel toModel(PlayerSheetDTO dto) {
