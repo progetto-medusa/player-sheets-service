@@ -1,10 +1,15 @@
-package com.progettomedusa.player_sheets_service.dto;
+package com.progettomedusa.player_sheets_service.model.dto;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class PlayerSheetDTO { 
     
     private Long id;

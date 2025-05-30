@@ -1,14 +1,16 @@
 package com.progettomedusa.player_sheets_service.model.response;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-@Getter
-@Setter
+
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestResponse {
     @JsonProperty("message")
     @Size(max = 2048)
@@ -25,5 +27,4 @@ public class RestResponse {
     @JsonProperty("timestamp")
     @Size(max = 1024)
     private String timestamp;
-
 }

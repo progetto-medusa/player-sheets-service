@@ -1,81 +1,88 @@
 package com.progettomedusa.player_sheets_service.controller;
 
-import com.progettomedusa.player_sheets_service.dto.PlayerSheetDTO;
+import com.progettomedusa.player_sheets_service.model.dto.PlayerSheetDTO;
+import com.progettomedusa.player_sheets_service.model.request.CreatePlayerSheetRequest;
+import com.progettomedusa.player_sheets_service.model.request.UpdatePlayerSheetRequest;
+import com.progettomedusa.player_sheets_service.model.response.*;
 import com.progettomedusa.player_sheets_service.service.PlayerSheetsService;
+import com.progettomedusa.player_sheets_service.config.PlayerSheetsApplicationProperties;
+import com.progettomedusa.player_sheets_service.model.converter.PlayerSheetConverter;
+import com.progettomedusa.player_sheets_service.util.Tools;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.progettomedusa.player_sheets_service.util.Constants.*;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/player-sheets")
+//@RequestMapping("/api/player-sheets")
 public class PlayerSheetsController {
 
     private final PlayerSheetsService playerSheetsService;
+    private final PlayerSheetConverter playerSheetConverter;
+   
 
     @GetMapping("/all")
-    public ResponseEntity<List<PlayerSheetDTO>> getAll() {
-        log.info("Recupero tutte le schede giocatore");
-        try {
-            return ResponseEntity.ok(playerSheetsService.getAllPlayerSheet());
-        } catch (Exception e) {
-            log.error("Errore recupero schede", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    public ResponseEntity<GetPlayerSheetsResponse> getAllUsers() {
+        log.info("Controller - getPlayerSheets (all) START");
+        GetPlayerSheetsResponse getPlayerSheetsResponse = playerSheetsService.getPlayerSheets();
+        log.info("Controller - getPlayerSheets END with response -> {}", getPlayerSheetsResponse);
+
+        if (getPlayerSheetsResponse.getDetailed() == null) {
+            return new ResponseEntity<>(getPlayerSheetsResponse, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(getPlayerSheetsResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/{sort}")
-    public ResponseEntity<PlayerSheetDTO> getById(@PathVariable Long id) {
-        log.info("Recupero scheda id={}", id);
-        try {
-            return ResponseEntity.ok(playerSheetsService.getPlayerSheetById(id));
-        } catch (Exception e) {
-            log.error("Errore recupero scheda id={}", id, e);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+    @GetMapping("/getId/{id}")
+    public ResponseEntity<GetPlayerSheetResponse> getUser(@PathVariable Long id) {
+        log.info("Controller - getPlayerSheet START with id -> {}", id);
+        GetPlayerSheetResponse getPlayerSheetResponse = playerSheetsService.getPlayerSheet(id);
+        log.info("Controller - getPlayerSheet END with response -> {}", getPlayerSheetResponse);
+
+        if (getPlayerSheetResponse.getMessage() == null) {
+            return new ResponseEntity<>(getPlayerSheetResponse, HttpStatus.OK);
+        } else if (getPlayerSheetResponse.getMessage().equals(PLAYER_SHEET_NOT_FOUND_MESSAGE)) {
+            return new ResponseEntity<>(getPlayerSheetResponse, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(getPlayerSheetResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping("/{create}")
-    public ResponseEntity<PlayerSheetDTO> create(@RequestBody PlayerSheetDTO dto) {
-        log.info("Creazione nuova scheda");
-        try {
-            PlayerSheetDTO created = playerSheetsService.createPlayerSheets(dto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(created);
-        } catch (Exception e) {
-            log.error("Errore creazione scheda", e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+
+    @PostMapping("/save")
+    public ResponseEntity<CreatePlayerSheetRequestResponse> createUser(@Valid @RequestBody CreatePlayerSheetRequest createPlayerSheetRequest) {
+        log.info("Controller - createPlayerSheet START with request -> {}", createPlayerSheetRequest);
+        PlayerSheetDTO playerSheetDTO = playerSheetConverter.createRequestToPlayerSheetDTO(createPlayerSheetRequest);
+        CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse = playerSheetsService.createPlayerSheet(playerSheetDTO);
+        log.info("Controller - createPlayerSheet END with response -> {}", createPlayerSheetRequestResponse);
+        return new ResponseEntity<>(createPlayerSheetRequestResponse, HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("/{upd}")
-    public ResponseEntity<?> update(@PathVariable Long id,
-                                    @RequestBody PlayerSheetDTO dto) {
-        log.info("Aggiorno scheda id={}", id);
-        try {
-            PlayerSheetDTO updated = playerSheetsService.updatePlayerSheets(id, dto);
-            return ResponseEntity.ok(updated);
-        } catch (Exception e) {
-            log.error("Errore aggiornamento scheda id={}", id, e);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("Impossibile modificare: scheda non trovata.");
-        }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UpdatePlayerSheetResponse> updatePlayerSheet(@RequestBody UpdatePlayerSheetRequest updatePlayerSheetRequest) {
+        log.info("Controller - updatePlayerSheet START with id -> {}", updatePlayerSheetRequest);
+        PlayerSheetDTO playerSheetDTO = playerSheetConverter.updatePlayerSheetRequestToDto(updatePlayerSheetRequest);
+        UpdatePlayerSheetResponse updatePlayerSheetResponse = playerSheetsService.updatePlayerSheet(playerSheetDTO);
+        log.info("Controller - updatePlayerSheet END with response -> {}", updatePlayerSheetResponse);
+
+        return new ResponseEntity<>(updatePlayerSheetResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{delete}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        log.info("Elimino scheda id={}", id);
-        try {
-            playerSheetsService.deletePlayerSheets(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            log.error("Errore eliminazione scheda id={}", id, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<DeletePlayerSheetResponse> deletePlayerSheet(@PathVariable Long id) {
+        log.info("Controller - deletePlayerSheet START with id -> {}", id);
+        DeletePlayerSheetResponse deletePlayerSheetResponse = playerSheetsService.deletePlayerSheet(id);
+        log.info("Controller - deletePlayerSheet END with response -> {}", deletePlayerSheetResponse);
+        return new ResponseEntity<>(deletePlayerSheetResponse, HttpStatus.ACCEPTED);
     }
 }

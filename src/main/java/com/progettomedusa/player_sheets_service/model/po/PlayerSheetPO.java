@@ -1,4 +1,4 @@
-package com.progettomedusa.player_sheets_service.model;
+package com.progettomedusa.player_sheets_service.model.po;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,19 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Getter 
-@Setter 
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Entity
 @Table(name = "player_sheets")
-public class PlayerSheetsModel {
-
+public class PlayerSheetPO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column (nullable = false)
     private String name;
     @Column (nullable = false)
@@ -71,3 +69,4 @@ public class PlayerSheetsModel {
     private String notes;
 
 }
+
