@@ -1,5 +1,6 @@
 package com.progettomedusa.player_sheets_service.model.po;
 
+import com.progettomedusa.player_sheets_service.model.po.componentPO.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,45 +29,22 @@ public class PlayerSheetPO {
     @Column (nullable = false)
     private int experience;
     @Column (nullable = false)
+    private Integer level;
+    @Column (nullable = false)
     private String alignment;
-    @Column (nullable = false)
-    private int strength;
-    @Column (nullable = false)
-    private int dexterity;
-    @Column (nullable = false)
-    private int constitution;
-    @Column (nullable = false)
-    private int intelligence;
-    @Column (nullable = false)
-    private int wisdom;
-    @Column (nullable = false)
-    private int charisma;
-    @Column (name="proficiency_bonus", nullable = false)
-    private int proficiencyBonus;
-    @Column (name="passive_perception", nullable = false)
-    private int passivePerception;
-    @Column (nullable = false)
-    private int speed;
-    @Column (nullable = false)
-    private int initiative;
-    @Column (name="max_hit_points", nullable = false)
-    private int maxHitPoints;
-    @Column (name="current_hit_points")
-    private int currentHitPoints;
-    @Column (name="temp_hit_points")
-    private int tempHitPoints;
-    @Column (name="hit_dice")
-    private String hitDice;
-    @Column (name="spellcasting_ability")
-    private String spellcastingAbility;
-    @Column (name="spell_save_dc")
-    private int spellSaveDC;
-    @Column (name="spell_attack_bonus")
-    private int spellAttackBonus;
-    @Column @Lob
-    private String features;
-    @Column @Lob
-    private String notes;
+
+    private AttacksPO attacksPO;
+    private CantripsPO cantripsPO;
+    private CurrencyPO currencyPO;
+    private EquipmentsPO equipmentsPO;
+    private PassiveStatsPO passiveStatsPO;
+    private PersonalityPO personalityPO;
+    private SavingThrowsPO savingThrowsPO;
+    private SkillsPO skillsPO;
+    private SpellcastingPO spellcastingPO;
+    private SpellSlotsPO spellSlotsPO;
+    private StatsPO statsPO;
+    private StatusPO statusPO;
 
 }
 
