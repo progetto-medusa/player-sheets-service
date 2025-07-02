@@ -6,6 +6,7 @@ import com.progettomedusa.player_sheets_service.model.po.PlayerSheetPO;
 import com.progettomedusa.player_sheets_service.model.request.CreatePlayerSheetRequest;
 import com.progettomedusa.player_sheets_service.model.response.*;
 import com.progettomedusa.player_sheets_service.repository.PlayerSheetsRepository;
+import com.progettomedusa.player_sheets_service.model.exception.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.progettomedusa.player_sheets_service.util.Constants.BASE_ERROR_DETAILS;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,21 +32,84 @@ public class PlayerSheetsService {
         return resp;
     }*/
 
-    public CreatePlayerSheetRequestResponse createPlayerSheet(PlayerSheetDTO playerSheetDTO) {
+    public CreatePlayerSheetRequestResponse createPlayerSheet(PlayerSheetDTO playerSheetDTO) throws CreatePlayerSheetException {
         log.info("Service - createPlayerSheet START with DTO -> {}",playerSheetDTO);
 
         PlayerSheetPO playerSheetToCreate = playerSheetConverter.dtoToPo(playerSheetDTO);
 
-        CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse;
         try {
-            PlayerSheetPO playerSheetCreated= playerSheetsRepository.save(playerSheetToCreate);
-            createPlayerSheetRequestResponse = playerSheetConverter.createPlayerSheetRequestResponse(playerSheetCreated);
-        }catch(Exception e){
-            log.error("Service - createPlayerSheet ERROR with message -> {}",e.getMessage());
-            createPlayerSheetRequestResponse = playerSheetConverter.createPlayerSheetRequestResponse(e);
+            if (playerSheetToCreate.getName() == null || playerSheetToCreate.getName().isBlank()) {
+                throw new CreatePlayerSheetException(
+                        ErrorMsg.PLSRV01.getCode(),
+                        ErrorMsg.PLSRV01.getMessage(),
+                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
+                        BASE_ERROR_DETAILS
+                );
+            }
+            if (playerSheetToCreate.getRace() == null || playerSheetToCreate.getRace().isBlank()) {
+                throw new CreatePlayerSheetException(
+                        ErrorMsg.PLSRV02.getCode(),
+                        ErrorMsg.PLSRV02.getMessage(),
+                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
+                        BASE_ERROR_DETAILS
+                );
+            }
+            if (playerSheetToCreate.getCharacterClass() == null || playerSheetToCreate.getCharacterClass().isBlank()) {
+                throw new CreatePlayerSheetException(
+                        ErrorMsg.PLSRV03.getCode(),
+                        ErrorMsg.PLSRV03.getMessage(),
+                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
+                        BASE_ERROR_DETAILS
+                );
+            }
+            if (playerSheetToCreate.getBackground() == null || playerSheetToCreate.getBackground().isBlank()) {
+                throw new CreatePlayerSheetException(
+                        ErrorMsg.PLSRV04.getCode(),
+                        ErrorMsg.PLSRV04.getMessage(),
+                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
+                        BASE_ERROR_DETAILS
+                );
+            }
+            if (playerSheetToCreate.getExperience() < 0) {
+                throw new CreatePlayerSheetException(
+                        ErrorMsg.PLSRV05.getCode(),
+                        ErrorMsg.PLSRV05.getMessage(),
+                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
+                        BASE_ERROR_DETAILS
+                );
+            }
+            if (playerSheetToCreate.getLevel() == null || playerSheetToCreate.getLevel() <=0 ) {
+                throw new CreatePlayerSheetException(
+                        ErrorMsg.PLSRV06.getCode(),
+                        ErrorMsg.PLSRV06.getMessage(),
+                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
+                        BASE_ERROR_DETAILS
+                );
+            }
+            if (playerSheetToCreate.getAlignment() == null || playerSheetToCreate.getAlignment().isBlank()) {
+                throw new CreatePlayerSheetException(
+                        ErrorMsg.PLSRV07.getCode(),
+                        ErrorMsg.PLSRV07.getMessage(),
+                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
+                        BASE_ERROR_DETAILS
+                );
+            }
+
+            PlayerSheetPO playerSheetCreated = playerSheetsRepository.save(playerSheetToCreate);
+
+            CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse =
+                    playerSheetConverter.createPlayerSheetRequestResponse(playerSheetCreated);
+
+            log.info("Service - createPlayerSheet END with response -> {}", createPlayerSheetRequestResponse);
+            return createPlayerSheetRequestResponse;
+
+        } catch (CreatePlayerSheetException e) {
+            log.error("CreatePlayerSheet validation failed: {}", e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            log.error("Unexpected error during createPlayerSheet: {}", e.getMessage(), e);
+            return playerSheetConverter.createPlayerSheetRequestResponse(e);
         }
-        log.info("Service - createPlayerSheet END with response -> {}",createPlayerSheetRequestResponse);
-        return createPlayerSheetRequestResponse;
     }
 
     public GetPlayerSheetsResponse getPlayerSheets()  {

@@ -33,17 +33,29 @@ public class PlayerSheetPO {
     @Column (nullable = false)
     private String alignment;
 
+    @Embedded
     private AttacksPO attacksPO;
+    @Embedded
     private CantripsPO cantripsPO;
+    @Embedded
     private CurrencyPO currencyPO;
+    @Embedded
     private EquipmentsPO equipmentsPO;
+    @Embedded
     private PassiveStatsPO passiveStatsPO;
+    @Embedded
     private PersonalityPO personalityPO;
+    @Embedded
     private SavingThrowsPO savingThrowsPO;
+    @Embedded
     private SkillsPO skillsPO;
+    @Embedded
     private SpellcastingPO spellcastingPO;
+    @Embedded
     private SpellSlotsPO spellSlotsPO;
+    @Embedded
     private StatsPO statsPO;
+    @Embedded
     private StatusPO statusPO;
 
 }

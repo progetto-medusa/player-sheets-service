@@ -1,6 +1,7 @@
 package com.progettomedusa.player_sheets_service.model.po.componentPO;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.*;
 
 @Getter
@@ -8,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Embeddable
 public class SavingThrowsPO {
 
     @Column(name="saving_throw1")

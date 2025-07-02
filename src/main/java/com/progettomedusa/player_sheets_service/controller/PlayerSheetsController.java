@@ -7,6 +7,7 @@ import com.progettomedusa.player_sheets_service.model.response.*;
 import com.progettomedusa.player_sheets_service.service.PlayerSheetsService;
 import com.progettomedusa.player_sheets_service.config.PlayerSheetsApplicationProperties;
 import com.progettomedusa.player_sheets_service.model.converter.PlayerSheetConverter;
+import com.progettomedusa.player_sheets_service.model.exception.CreatePlayerSheetException;
 import com.progettomedusa.player_sheets_service.util.Tools;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class PlayerSheetsController {
    
 
     @GetMapping("/all")
-    public ResponseEntity<GetPlayerSheetsResponse> getAllUsers() {
+    public ResponseEntity<GetPlayerSheetsResponse> getAllPlayerSheet() {
         log.info("Controller - getPlayerSheets (all) START");
         GetPlayerSheetsResponse getPlayerSheetsResponse = playerSheetsService.getPlayerSheets();
         log.info("Controller - getPlayerSheets END with response -> {}", getPlayerSheetsResponse);
@@ -43,7 +44,7 @@ public class PlayerSheetsController {
 
 
     @GetMapping("/getId/{id}")
-    public ResponseEntity<GetPlayerSheetResponse> getUser(@PathVariable Long id) {
+    public ResponseEntity<GetPlayerSheetResponse> getPlayerSheet(@PathVariable Long id) {
         log.info("Controller - getPlayerSheet START with id -> {}", id);
         GetPlayerSheetResponse getPlayerSheetResponse = playerSheetsService.getPlayerSheet(id);
         log.info("Controller - getPlayerSheet END with response -> {}", getPlayerSheetResponse);
@@ -59,7 +60,7 @@ public class PlayerSheetsController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<CreatePlayerSheetRequestResponse> createUser(@Valid @RequestBody CreatePlayerSheetRequest createPlayerSheetRequest) {
+    public ResponseEntity<CreatePlayerSheetRequestResponse> createPlayerSheet(@Valid @RequestBody CreatePlayerSheetRequest createPlayerSheetRequest) throws CreatePlayerSheetException {
         log.info("Controller - createPlayerSheet START with request -> {}", createPlayerSheetRequest);
         PlayerSheetDTO playerSheetDTO = playerSheetConverter.createRequestToPlayerSheetDTO(createPlayerSheetRequest);
         CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse = playerSheetsService.createPlayerSheet(playerSheetDTO);

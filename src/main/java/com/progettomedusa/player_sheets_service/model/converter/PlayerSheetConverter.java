@@ -116,6 +116,91 @@ public class PlayerSheetConverter {
         return createPlayerSheetRequestResponse;}
 
 
+    public PlayerSheetDTO createRequestToPlayerSheetDTO(CreatePlayerSheetRequest createPlayerSheetRequest){
+        PlayerSheetDTO playerSheetDTO = new PlayerSheetDTO();
+        playerSheetDTO.setName(createPlayerSheetRequest.getName());
+        playerSheetDTO.setRace(createPlayerSheetRequest.getRace());
+        playerSheetDTO.setCharacterClass(createPlayerSheetRequest.getCharacterClass());
+        playerSheetDTO.setBackground(createPlayerSheetRequest.getBackground());
+        playerSheetDTO.setExperience(createPlayerSheetRequest.getExperience());
+        playerSheetDTO.setLevel(createPlayerSheetRequest.getLevel());
+        playerSheetDTO.setAlignment(createPlayerSheetRequest.getAlignment());
+        playerSheetDTO.setStatsDTO(new StatsDTO(
+                createPlayerSheetRequest.getStats().getStrength(), createPlayerSheetRequest.getStats().getDexterity(),
+                createPlayerSheetRequest.getStats().getConstitution(), createPlayerSheetRequest.getStats().getIntelligence(),
+                createPlayerSheetRequest.getStats().getWisdom(), createPlayerSheetRequest.getStats().getCharisma()
+        ));
+        playerSheetDTO.setStatusDTO(new StatusDTO(
+                createPlayerSheetRequest.getStatus().getArmorClass(), createPlayerSheetRequest.getStatus().getSpeed(),
+                createPlayerSheetRequest.getStatus().getInitiative(), createPlayerSheetRequest.getStatus().getMaxHitPoints(),
+                createPlayerSheetRequest.getStatus().getCurrentHitPoints(), createPlayerSheetRequest.getStatus().getTempHitPoints(),
+                createPlayerSheetRequest.getStatus().getHitDice(), createPlayerSheetRequest.getStatus().getArmor(),
+                createPlayerSheetRequest.getStatus().getWeapons(), createPlayerSheetRequest.getStatus().getTools(),
+                createPlayerSheetRequest.getStatus().getLanguages()
+        ));
+        playerSheetDTO.setSkillsDTO(new SkillsDTO(
+                createPlayerSheetRequest.getSkills().getAcrobatics(), createPlayerSheetRequest.getSkills().getAnimalHandling(), createPlayerSheetRequest.getSkills().getArcana(),
+                createPlayerSheetRequest.getSkills().getAthletics(),createPlayerSheetRequest.getSkills().getDeception(), createPlayerSheetRequest.getSkills().getHistory(),
+                createPlayerSheetRequest.getSkills().getInsight(), createPlayerSheetRequest.getSkills().getIntimidation(), createPlayerSheetRequest.getSkills().getInvestigation(),
+                createPlayerSheetRequest.getSkills().getMedicine(), createPlayerSheetRequest.getSkills().getNature(), createPlayerSheetRequest.getSkills().getPerception(),
+                createPlayerSheetRequest.getSkills().getPerformance(), createPlayerSheetRequest.getSkills().getPersuasion(), createPlayerSheetRequest.getSkills().getReligion(),
+                createPlayerSheetRequest.getSkills().getSightOfHand(), createPlayerSheetRequest.getSkills().getStealth(), createPlayerSheetRequest.getSkills().getSurvival()
+        ));
+        playerSheetDTO.setSavingThrowsDTO(new SavingThrowsDTO(
+                createPlayerSheetRequest.getSavingThrows().isSavingThrow1(), createPlayerSheetRequest.getSavingThrows().isSavingThrow2(),
+                createPlayerSheetRequest.getSavingThrows().isSavingThrow3()
+        ));
+        playerSheetDTO.setAttacksDTO(new AttacksDTO(
+                createPlayerSheetRequest.getAttacks().getAttack1Name(), createPlayerSheetRequest.getAttacks().getAttack1Bonus(), createPlayerSheetRequest.getAttacks().getAttack1Damage(),
+                createPlayerSheetRequest.getAttacks().getAttack2Name(), createPlayerSheetRequest.getAttacks().getAttack2Bonus(), createPlayerSheetRequest.getAttacks().getAttack2Damage(),
+                createPlayerSheetRequest.getAttacks().getAttack3Name(), createPlayerSheetRequest.getAttacks().getAttack3Bonus(), createPlayerSheetRequest.getAttacks().getAttack3Damage()
+        ));
+        playerSheetDTO.setCantripsDTO(new CantripsDTO(
+                createPlayerSheetRequest.getCantrips().getCantrip1(), createPlayerSheetRequest.getCantrips().getCantrip2(),
+                createPlayerSheetRequest.getCantrips().getCantrip3(), createPlayerSheetRequest.getCantrips().getCantrip4()
+        ));
+        playerSheetDTO.setSpellcastingDTO(new SpellcastingDTO(
+                createPlayerSheetRequest.getSpellcasting().getSpellcastingClass(), createPlayerSheetRequest.getSpellcasting().getSpellcastingAbility(),
+                createPlayerSheetRequest.getSpellcasting().getSpellSaveDC(), createPlayerSheetRequest.getSpellcasting().getSpellAttackBonus()
+        ));
+        playerSheetDTO.setSpellSlotsDTO(new SpellSlotsDTO(
+                createPlayerSheetRequest.getSpellSlots().getSpellSlots1(), createPlayerSheetRequest.getSpellSlots().isSpellSlots1Used(),
+                createPlayerSheetRequest.getSpellSlots().getSpellSlots2(), createPlayerSheetRequest.getSpellSlots().isSpellSlots2Used(),
+                createPlayerSheetRequest.getSpellSlots().getSpellSlots3(), createPlayerSheetRequest.getSpellSlots().isSpellSlots3Used(),
+                createPlayerSheetRequest.getSpellSlots().getSpellSlots4(), createPlayerSheetRequest.getSpellSlots().isSpellSlots4Used(),
+                createPlayerSheetRequest.getSpellSlots().getSpellSlots5(), createPlayerSheetRequest.getSpellSlots().isSpellSlots5Used(),
+                createPlayerSheetRequest.getSpellSlots().getSpellSlots6(), createPlayerSheetRequest.getSpellSlots().isSpellSlots6Used(),
+                createPlayerSheetRequest.getSpellSlots().getSpellSlots7(), createPlayerSheetRequest.getSpellSlots().isSpellSlots7Used(),
+                createPlayerSheetRequest.getSpellSlots().getSpellSlots8(), createPlayerSheetRequest.getSpellSlots().isSpellSlots8Used(),
+                createPlayerSheetRequest.getSpellSlots().getSpellSlots9(), createPlayerSheetRequest.getSpellSlots().isSpellSlots9Used()
+        ));
+        playerSheetDTO.setCurrencyDTO(new CurrencyDTO(
+                createPlayerSheetRequest.getCurrency().getCopperCurrency(), createPlayerSheetRequest.getCurrency().getBronzeCurrency(),
+                createPlayerSheetRequest.getCurrency().getSilverCurrency(), createPlayerSheetRequest.getCurrency().getGoldCurrency(),
+                createPlayerSheetRequest.getCurrency().getPlatinumCurrency()
+        ));
+        playerSheetDTO.setEquipmentsDTO(new EquipmentsDTO(
+                createPlayerSheetRequest.getEquipments().getEquipment1(), createPlayerSheetRequest.getEquipments().getEquipment2(),
+                createPlayerSheetRequest.getEquipments().getEquipment3(), createPlayerSheetRequest.getEquipments().getEquipment4(),
+                createPlayerSheetRequest.getEquipments().getEquipment5()
+        ));
+        playerSheetDTO.setPassiveStatsDTO(new PassiveStatsDTO(
+                createPlayerSheetRequest.getPassiveStats().getInspiration(), createPlayerSheetRequest.getPassiveStats().getProficiencyBonus(),
+                createPlayerSheetRequest.getPassiveStats().getPassivePerception()
+        ));
+        playerSheetDTO.setPersonalityDTO(new PersonalityDTO(
+                createPlayerSheetRequest.getPersonality().getPersonalityTraits(), createPlayerSheetRequest.getPersonality().getIdeals(),
+                createPlayerSheetRequest.getPersonality().getBonds(), createPlayerSheetRequest.getPersonality().getFlaws(),
+                createPlayerSheetRequest.getPersonality().getFeature1(), createPlayerSheetRequest.getPersonality().getFeature2(),
+                createPlayerSheetRequest.getPersonality().getFeature3(), createPlayerSheetRequest.getPersonality().getNotes(),
+                createPlayerSheetRequest.getPersonality().getBackstory()
+        ));
+
+        log.info("PlayerSheetConverter - createRequestToDto END with DTO -> {}", playerSheetDTO);
+        return playerSheetDTO;
+    }
+
+
 
 
     public CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse(Exception e){

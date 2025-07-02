@@ -78,6 +78,13 @@ public class ErrorHandler implements RequestBodyAdvice {
         return buildError(request, ErrorMsg.USRSRV99.getCode(), ErrorMsg.USRSRV99.getMessage(), ex.getMessage(), DomainMsg.USER_SERVICE_TECHNICAL.getName());
     }
 
+    @ExceptionHandler(CreatePlayerSheetException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public final CommonErrorResponse handleBadRequestExceptions(CreatePlayerSheetException ex, HttpServletRequest request, String code, String message) {
+        log.error("Exception: ", ex);
+        return buildError(request, code, message, ex.getMessage(), DomainMsg.USER_SERVICE_TECHNICAL.getName());
+    }
+
     @ExceptionHandler({ MethodArgumentNotValidException.class, MissingServletRequestParameterException.class })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public final CommonErrorResponse handleValidationException(Exception ex, HttpServletRequest request) {

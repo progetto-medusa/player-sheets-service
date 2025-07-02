@@ -1,14 +1,14 @@
 package com.progettomedusa.player_sheets_service.model.po.componentPO;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.Embeddable;
 import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Embeddable
 public class SpellSlotsPO {
 
     @Column(name="spell_slots1")

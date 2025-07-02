@@ -44,17 +44,17 @@ public class CreatePlayerSheetRequest {
     @NotBlank
     private String alignment;
 
-    private StatusRequest attacks;
-    private StatusRequest cantrips;
-    private StatusRequest currency;
-    private StatusRequest equipments;
-    private StatusRequest passiveStats;
-    private StatusRequest personality;
-    private StatusRequest savingThrows;
-    private StatusRequest skills;
-    private StatusRequest spellcasting;
-    private StatusRequest spellSlots;
-    private StatusRequest stats;
+    private AttacksRequest attacks;
+    private CantripsRequest cantrips;
+    private CurrencyRequest currency;
+    private EquipmentsRequest equipments;
+    private PassiveStatsRequest passiveStats;
+    private PersonalityRequest personality;
+    private SavingThrowsRequest savingThrows;
+    private SkillsRequest skills;
+    private SpellcastingRequest spellcasting;
+    private SpellSlotsRequest spellSlots;
+    private StatsRequest stats;
     private StatusRequest status;
 
 

@@ -32,9 +32,23 @@ public enum ErrorMsg {
 
     USRSRV13("USRSRV13", "Missing mandatory parameters", HttpStatus.BAD_REQUEST),
 
-    USRSRV69("USRSRV69", "Bad Request: missing parameters", HttpStatus.BAD_REQUEST),
+    PLSRV01("PLSRV01", "Error: character name is missing", HttpStatus.BAD_REQUEST),
+
+    PLSRV02("PLSRV02", "Error: character race is missing", HttpStatus.BAD_REQUEST),
+
+    PLSRV03("PLSRV03", "Error: character class is missing", HttpStatus.BAD_REQUEST),
+
+    PLSRV04("PLSRV04", "Error: character background is missing", HttpStatus.BAD_REQUEST),
+
+    PLSRV05("PLSRV05", "Error: character experience can't be less than zero", HttpStatus.BAD_REQUEST),
+
+    PLSRV06("PLSRV06", "Error: character level is missing", HttpStatus.BAD_REQUEST),
+
+    PLSRV07("PLSRV07", "Error: character alignment is missing", HttpStatus.BAD_REQUEST),
 
     USRSRV99("USRSRV99", "Generic error", HttpStatus.INTERNAL_SERVER_ERROR);
+
+
 
     private final String code;
 
