@@ -22,14 +22,14 @@ import static com.progettomedusa.player_sheets_service.util.Constants.*;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-//@RequestMapping("/api/player-sheets")
+@RequestMapping("/progetto-medusa")
 public class PlayerSheetsController {
 
     private final PlayerSheetsService playerSheetsService;
     private final PlayerSheetConverter playerSheetConverter;
    
 
-    @GetMapping("/all")
+    @GetMapping("/player-sheet/all")
     public ResponseEntity<GetPlayerSheetsResponse> getAllPlayerSheet() {
         log.info("Controller - getPlayerSheets (all) START");
         GetPlayerSheetsResponse getPlayerSheetsResponse = playerSheetsService.getPlayerSheets();
@@ -43,7 +43,7 @@ public class PlayerSheetsController {
     }
 
 
-    @GetMapping("/getId/{id}")
+    @GetMapping("/player-sheet/getId/{id}")
     public ResponseEntity<GetPlayerSheetResponse> getPlayerSheet(@PathVariable Long id) {
         log.info("Controller - getPlayerSheet START with id -> {}", id);
         GetPlayerSheetResponse getPlayerSheetResponse = playerSheetsService.getPlayerSheet(id);
@@ -59,7 +59,7 @@ public class PlayerSheetsController {
     }
 
 
-    @PostMapping("/save")
+    @PostMapping("/player-sheet/save")
     public ResponseEntity<CreatePlayerSheetRequestResponse> createPlayerSheet(@Valid @RequestBody CreatePlayerSheetRequest createPlayerSheetRequest) throws CreatePlayerSheetException {
         log.info("Controller - createPlayerSheet START with request -> {}", createPlayerSheetRequest);
         PlayerSheetDTO playerSheetDTO = playerSheetConverter.createRequestToPlayerSheetDTO(createPlayerSheetRequest);
@@ -69,7 +69,7 @@ public class PlayerSheetsController {
     }
 
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/player-sheet/update/{id}")
     public ResponseEntity<UpdatePlayerSheetResponse> updatePlayerSheet(@RequestBody UpdatePlayerSheetRequest updatePlayerSheetRequest) {
         log.info("Controller - updatePlayerSheet START with id -> {}", updatePlayerSheetRequest);
         PlayerSheetDTO playerSheetDTO = playerSheetConverter.updatePlayerSheetRequestToDto(updatePlayerSheetRequest);
@@ -79,7 +79,7 @@ public class PlayerSheetsController {
         return new ResponseEntity<>(updatePlayerSheetResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/player-sheet/delete/{id}")
     public ResponseEntity<DeletePlayerSheetResponse> deletePlayerSheet(@PathVariable Long id) {
         log.info("Controller - deletePlayerSheet START with id -> {}", id);
         DeletePlayerSheetResponse deletePlayerSheetResponse = playerSheetsService.deletePlayerSheet(id);
