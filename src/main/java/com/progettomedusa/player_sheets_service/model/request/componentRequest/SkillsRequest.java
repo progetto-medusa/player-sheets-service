@@ -16,56 +16,39 @@ import lombok.Data;
 public class SkillsRequest {
 
     @JsonProperty
-    @NotNull
     private Integer acrobatics; //(Dex)
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("animal_handling")
     private Integer animalHandling; //(Wis)
     @JsonProperty
-    @NotNull
     private Integer arcana; //(Int)
     @JsonProperty
-    @NotNull
     private Integer athletics; //(Str)@JsonProperty
-    @NotNull
+    @JsonProperty
     private Integer deception; //(Cha)
     @JsonProperty
-    @NotNull
     private Integer history; //(Int)
     @JsonProperty
-    @NotNull
     private Integer insight; //(Wis)
     @JsonProperty
-    @NotNull
     private Integer intimidation; //(Cha)
     @JsonProperty
-    @NotNull
     private Integer investigation; //(Int)
     @JsonProperty
-    @NotNull
     private Integer medicine; //(Wis)
     @JsonProperty
-    @NotNull
     private Integer nature; //(Int)
     @JsonProperty
-    @NotNull
     private Integer perception; //(Wis)
     @JsonProperty
-    @NotNull
     private Integer performance; //(Cha)
     @JsonProperty
-    @NotNull
     private Integer persuasion; //(Cha)
     @JsonProperty
-    @NotNull
     private Integer religion; //(Int)
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("sight_of_hand")
     private Integer sightOfHand; //(Dex)
     @JsonProperty
-    @NotNull
     private Integer stealth; //(Dex)
     @JsonProperty
-    @NotNull
     private Integer survival; //(Wis)
 }

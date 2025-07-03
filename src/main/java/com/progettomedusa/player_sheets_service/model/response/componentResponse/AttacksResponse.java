@@ -11,33 +11,23 @@ import lombok.*;
 @Data
 public class AttacksResponse {
 
-
-    @JsonProperty
-    @NotBlank
+    @JsonProperty ("attack1_name")
     private String attack1Name;
-    @JsonProperty
-    @NotBlank
+    @JsonProperty ("attack1_bonus")
     private String attack1Bonus;
-    @JsonProperty
-    @NotBlank
+    @JsonProperty ("attack1_damage")
     private String attack1Damage;
-    @JsonProperty
-    @NotBlank
+    @JsonProperty ("attack2_name")
     private String attack2Name;
-    @JsonProperty
-    @NotBlank
+    @JsonProperty ("attack2_bonus")
     private String attack2Bonus;
-    @JsonProperty
-    @NotBlank
+    @JsonProperty ("attack2_damage")
     private String attack2Damage;
-    @JsonProperty
-    @NotBlank
+    @JsonProperty ("attack3_name")
     private String attack3Name;
-    @JsonProperty
-    @NotBlank
+    @JsonProperty ("attack3_bonus")
     private String attack3Bonus;
-    @JsonProperty
-    @NotBlank
+    @JsonProperty ("attack3_damage")
     private String attack3Damage;
 
 }

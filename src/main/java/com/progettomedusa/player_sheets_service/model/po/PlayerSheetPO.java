@@ -27,7 +27,7 @@ public class PlayerSheetPO {
     @Column (nullable = false)
     private String background;
     @Column (nullable = false)
-    private int experience;
+    private Integer experience;
     @Column (nullable = false)
     private Integer level;
     @Column (nullable = false)

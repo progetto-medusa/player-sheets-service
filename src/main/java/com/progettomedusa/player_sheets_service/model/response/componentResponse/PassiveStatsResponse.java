@@ -17,12 +17,9 @@ import lombok.Data;
 public class PassiveStatsResponse {
 
     @JsonProperty
-    @NotNull
     private Integer inspiration;
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("proficiency_bonus")
     private Integer proficiencyBonus;
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("passive_perception")
     private Integer passivePerception;
 }

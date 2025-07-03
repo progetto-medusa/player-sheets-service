@@ -14,41 +14,41 @@ import lombok.Data;
 @Data
 public class SpellSlotsResponse {
 
-    @JsonProperty
+    @JsonProperty ("spell_slots1")
     private Integer spellSlots1;
-    @JsonProperty
+    @JsonProperty ("spell_slots1_used")
     private boolean spellSlots1Used;
-    @JsonProperty
+    @JsonProperty  ("spell_slots2")
     private Integer spellSlots2;
-    @JsonProperty
+    @JsonProperty ("spell_slots2_used")
     private boolean spellSlots2Used;
-    @JsonProperty
+    @JsonProperty ("spell_slots3")
     private Integer spellSlots3;
-    @JsonProperty
+    @JsonProperty ("spell_slots3_used")
     private boolean spellSlots3Used;
-    @JsonProperty
+    @JsonProperty ("spell_slots4")
     private Integer spellSlots4;
-    @JsonProperty
+    @JsonProperty ("spell_slots4_used")
     private boolean spellSlots4Used;
-    @JsonProperty
+    @JsonProperty ("spell_slots5")
     private Integer spellSlots5;
-    @JsonProperty
+    @JsonProperty ("spell_slots5_used")
     private boolean spellSlots5Used;
-    @JsonProperty
+    @JsonProperty ("spell_slots6")
     private Integer spellSlots6;
-    @JsonProperty
+    @JsonProperty ("spell_slots6_used")
     private boolean spellSlots6Used;
-    @JsonProperty
+    @JsonProperty ("spell_slots7")
     private Integer spellSlots7;
-    @JsonProperty
+    @JsonProperty ("spell_slots7_used")
     private boolean spellSlots7Used;
-    @JsonProperty
+    @JsonProperty ("spell_slots8")
     private Integer spellSlots8;
-    @JsonProperty
+    @JsonProperty ("spell_slots8_used")
     private boolean spellSlots8Used;
-    @JsonProperty
+    @JsonProperty ("spell_slots9")
     private Integer spellSlots9;
-    @JsonProperty
+    @JsonProperty ("spell_slots9_used")
     private boolean spellSlots9Used;
 
 }

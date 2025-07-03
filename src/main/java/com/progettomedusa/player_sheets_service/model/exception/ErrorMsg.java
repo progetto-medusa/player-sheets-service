@@ -42,9 +42,23 @@ public enum ErrorMsg {
 
     PLSRV05("PLSRV05", "Error: character experience can't be less than zero", HttpStatus.BAD_REQUEST),
 
-    PLSRV06("PLSRV06", "Error: character level is missing", HttpStatus.BAD_REQUEST),
+    PLSRV06("PLSRV06", "Error: character level is missing or invalid value assign (must be between 1 and 20", HttpStatus.BAD_REQUEST),
 
     PLSRV07("PLSRV07", "Error: character alignment is missing", HttpStatus.BAD_REQUEST),
+
+    PLSRV08("PLSRV08", "Error: character name is missing", HttpStatus.BAD_REQUEST),
+
+    PLSRV09("PLSRV09", "Error: character race is missing", HttpStatus.BAD_REQUEST),
+
+    PLSRV10("PLSRV10", "Error: character class is missing", HttpStatus.BAD_REQUEST),
+
+    PLSRV11("PLSRV11", "Error: character background is missing", HttpStatus.BAD_REQUEST),
+
+    PLSRV12("PLSRV12", "Error: character experience can't be less than zero", HttpStatus.BAD_REQUEST),
+
+    PLSRV13("PLSRV13", "Error: character level is missing or invalid value assign (must be between 1 and 20", HttpStatus.BAD_REQUEST),
+
+    PLSRV14("PLSRV14", "Error: character alignment is missing", HttpStatus.BAD_REQUEST),
 
     USRSRV99("USRSRV99", "Generic error", HttpStatus.INTERNAL_SERVER_ERROR);
 

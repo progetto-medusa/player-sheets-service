@@ -15,13 +15,10 @@ import lombok.Data;
 @Data
 public class SavingThrowsRequest {
 
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("saving_throw1")
     private boolean savingThrow1;
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("saving_throw2")
     private boolean savingThrow2;
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("saving_throw3")
     private boolean savingThrow3;
 }

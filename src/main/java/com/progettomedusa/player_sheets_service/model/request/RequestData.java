@@ -1,4 +1,4 @@
-package com.progettomedusa.player_sheets_service.model.po;
+package com.progettomedusa.player_sheets_service.model.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

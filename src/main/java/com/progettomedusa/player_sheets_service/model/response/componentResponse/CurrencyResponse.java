@@ -15,19 +15,14 @@ import lombok.Data;
 @Data
 public class CurrencyResponse {
 
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("copper_currency")
     private Integer copperCurrency;
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("bronze_currency")
     private Integer bronzeCurrency;
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("silver_currency")
     private Integer silverCurrency;
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("gold_currency")
     private Integer goldCurrency;
-    @JsonProperty
-    @NotNull
+    @JsonProperty ("platinum_currency")
     private Integer platinumCurrency;
 }

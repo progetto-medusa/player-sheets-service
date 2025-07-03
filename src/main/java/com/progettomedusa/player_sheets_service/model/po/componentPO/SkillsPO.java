@@ -42,7 +42,7 @@ public class SkillsPO {
     private Integer persuasion; //(Cha)
         @Column
     private Integer religion; //(Int)
-        @Column(name="sight_of_hands")
+        @Column(name="sight_of_hand")
     private Integer sightOfHand; //(Dex)
         @Column
     private Integer stealth; //(Dex)

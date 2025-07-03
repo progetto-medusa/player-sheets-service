@@ -16,15 +16,11 @@ import lombok.Data;
 public class CantripsRequest {
 
     @JsonProperty
-    @NotBlank
     private String cantrip1;
     @JsonProperty
-    @NotBlank
     private String cantrip2;
     @JsonProperty
-    @NotBlank
     private String cantrip3;
     @JsonProperty
-    @NotBlank
     private String cantrip4;
 }

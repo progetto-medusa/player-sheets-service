@@ -3,17 +3,16 @@ package com.progettomedusa.player_sheets_service.service;
 import com.progettomedusa.player_sheets_service.model.converter.PlayerSheetConverter;
 import com.progettomedusa.player_sheets_service.model.dto.PlayerSheetDTO;
 import com.progettomedusa.player_sheets_service.model.po.PlayerSheetPO;
-import com.progettomedusa.player_sheets_service.model.request.CreatePlayerSheetRequest;
 import com.progettomedusa.player_sheets_service.model.response.*;
 import com.progettomedusa.player_sheets_service.repository.PlayerSheetsRepository;
 import com.progettomedusa.player_sheets_service.model.exception.*;
+import com.progettomedusa.player_sheets_service.model.serviceValidator.ServiceValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.progettomedusa.player_sheets_service.util.Constants.BASE_ERROR_DETAILS;
 
@@ -25,92 +24,57 @@ public class PlayerSheetsService {
     private final PlayerSheetsRepository playerSheetsRepository;
     private final PlayerSheetConverter playerSheetConverter;
 
-    /*public RestResponse getRootStatus(PlayerSheetDTO dto) {
-        log.debug("Service - getRootStatus START");
-        RestResponse resp = converter.retrieveRestResponseForRootPath(dto);
-        log.debug("Service - getRootStatus END");
-        return resp;
-    }*/
 
-    public CreatePlayerSheetRequestResponse createPlayerSheet(PlayerSheetDTO playerSheetDTO) throws CreatePlayerSheetException {
+
+    public CreatePlayerSheetResponse createPlayerSheet(PlayerSheetDTO playerSheetDTO) throws CreatePlayerSheetException {
         log.info("Service - createPlayerSheet START with DTO -> {}",playerSheetDTO);
 
         PlayerSheetPO playerSheetToCreate = playerSheetConverter.dtoToPo(playerSheetDTO);
-
         try {
-            if (playerSheetToCreate.getName() == null || playerSheetToCreate.getName().isBlank()) {
-                throw new CreatePlayerSheetException(
-                        ErrorMsg.PLSRV01.getCode(),
-                        ErrorMsg.PLSRV01.getMessage(),
-                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
-                        BASE_ERROR_DETAILS
-                );
-            }
-            if (playerSheetToCreate.getRace() == null || playerSheetToCreate.getRace().isBlank()) {
-                throw new CreatePlayerSheetException(
-                        ErrorMsg.PLSRV02.getCode(),
-                        ErrorMsg.PLSRV02.getMessage(),
-                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
-                        BASE_ERROR_DETAILS
-                );
-            }
-            if (playerSheetToCreate.getCharacterClass() == null || playerSheetToCreate.getCharacterClass().isBlank()) {
-                throw new CreatePlayerSheetException(
-                        ErrorMsg.PLSRV03.getCode(),
-                        ErrorMsg.PLSRV03.getMessage(),
-                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
-                        BASE_ERROR_DETAILS
-                );
-            }
-            if (playerSheetToCreate.getBackground() == null || playerSheetToCreate.getBackground().isBlank()) {
-                throw new CreatePlayerSheetException(
-                        ErrorMsg.PLSRV04.getCode(),
-                        ErrorMsg.PLSRV04.getMessage(),
-                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
-                        BASE_ERROR_DETAILS
-                );
-            }
-            if (playerSheetToCreate.getExperience() < 0) {
-                throw new CreatePlayerSheetException(
-                        ErrorMsg.PLSRV05.getCode(),
-                        ErrorMsg.PLSRV05.getMessage(),
-                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
-                        BASE_ERROR_DETAILS
-                );
-            }
-            if (playerSheetToCreate.getLevel() == null || playerSheetToCreate.getLevel() <=0 ) {
-                throw new CreatePlayerSheetException(
-                        ErrorMsg.PLSRV06.getCode(),
-                        ErrorMsg.PLSRV06.getMessage(),
-                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
-                        BASE_ERROR_DETAILS
-                );
-            }
-            if (playerSheetToCreate.getAlignment() == null || playerSheetToCreate.getAlignment().isBlank()) {
-                throw new CreatePlayerSheetException(
-                        ErrorMsg.PLSRV07.getCode(),
-                        ErrorMsg.PLSRV07.getMessage(),
-                        DomainMsg.MICROSERVICE_FUNCTIONAL.getName(),
-                        BASE_ERROR_DETAILS
-                );
-            }
+            ServiceValidator.validateCreate(playerSheetToCreate);
 
             PlayerSheetPO playerSheetCreated = playerSheetsRepository.save(playerSheetToCreate);
 
-            CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse =
-                    playerSheetConverter.createPlayerSheetRequestResponse(playerSheetCreated);
+            CreatePlayerSheetResponse createPlayerSheetResponse =
+                    playerSheetConverter.createPlayerSheetResponse(playerSheetCreated);
 
-            log.info("Service - createPlayerSheet END with response -> {}", createPlayerSheetRequestResponse);
-            return createPlayerSheetRequestResponse;
+            log.info("Service - createPlayerSheet END with response -> {}", createPlayerSheetResponse);
+            return createPlayerSheetResponse;
 
         } catch (CreatePlayerSheetException e) {
             log.error("CreatePlayerSheet validation failed: {}", e.getMessage());
             throw e;
         } catch (Exception e) {
             log.error("Unexpected error during createPlayerSheet: {}", e.getMessage(), e);
-            return playerSheetConverter.createPlayerSheetRequestResponse(e);
+            return playerSheetConverter.createPlayerSheetResponse(e);
         }
     }
+
+    public UpdatePlayerSheetResponse updatePlayerSheet(PlayerSheetDTO playerSheetDTO) throws UpdatePlayerSheetException {
+        log.info("Service - UpdatePlayerSheet START with dto -> {}", playerSheetDTO);
+
+        PlayerSheetPO playerSheetToUpdate = playerSheetConverter.dtoToPo(playerSheetDTO);
+
+        try {
+            ServiceValidator.validateUpdate(playerSheetToUpdate);
+
+            PlayerSheetPO currentPlayerSheet = playerSheetsRepository.save(playerSheetToUpdate);
+            UpdatePlayerSheetResponse updatePlayerSheetResponse = playerSheetConverter.playerSheetToUpdateResponse(currentPlayerSheet);
+
+
+            log.info("Service - UpdatePlayerSheet END with dto -> {}", updatePlayerSheetResponse);
+            return updatePlayerSheetResponse;
+
+        }catch (UpdatePlayerSheetException e) {
+            log.error("UpdatePlayerSheet validation failed: {}", e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            log.error("Unexpected error during createPlayerSheet: {}", e.getMessage(), e);
+            return playerSheetConverter.updatePlayerSheetResponse(e);
+        }
+    }
+
+
 
     public GetPlayerSheetsResponse getPlayerSheets()  {
         log.info("Service - Retrieving all sheets (getPlayerSheets) START");
@@ -136,16 +100,7 @@ public class PlayerSheetsService {
     }
 
 
-    public UpdatePlayerSheetResponse updatePlayerSheet(PlayerSheetDTO playerSheetDTO) {
-        log.info("Service - UpdatePlayerSheet START with dto -> {}", playerSheetDTO );
 
-        PlayerSheetPO playerSheetToUpdate = playerSheetConverter.dtoToPo(playerSheetDTO);
-        PlayerSheetPO currentPlayerSheet = playerSheetsRepository.save(playerSheetToUpdate);
-        UpdatePlayerSheetResponse updatePlayerSheetResponse = playerSheetConverter.playerSheetToUpdateResponse(currentPlayerSheet);
-
-        log.info("Service - UpdatePlayerSheet END with dto -> {}", updatePlayerSheetResponse );
-        return updatePlayerSheetResponse;
-    }
 
     public DeletePlayerSheetResponse deletePlayerSheet(Long id) {
         log.info("Service - DeletePlayerSheet START with id -> {}", id);

@@ -16,12 +16,12 @@ import lombok.Data;
 @Data
 public class SpellcastingRequest {
 
-    @JsonProperty
+    @JsonProperty ("spellcasting_class")
     private String spellcastingClass;
-    @JsonProperty
+    @JsonProperty ("spellcasting_ability")
     private String spellcastingAbility;
-    @JsonProperty
+    @JsonProperty ("spell_save_dc")
     private Integer spellSaveDC;
-    @JsonProperty
+    @JsonProperty ("spell_attack_bonus")
     private Integer spellAttackBonus;
 }

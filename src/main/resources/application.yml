@@ -2,7 +2,7 @@ spring:
   application:
     name: player-sheets-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/progetto_medusa
+    url: jdbc:postgresql://localhost:5432/postgres
     username: admin
     password: admin123
     jpa:

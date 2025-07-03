@@ -1,21 +1,18 @@
 package com.progettomedusa.player_sheets_service.controller;
 
 import com.progettomedusa.player_sheets_service.model.dto.PlayerSheetDTO;
+import com.progettomedusa.player_sheets_service.model.exception.UpdatePlayerSheetException;
 import com.progettomedusa.player_sheets_service.model.request.CreatePlayerSheetRequest;
 import com.progettomedusa.player_sheets_service.model.request.UpdatePlayerSheetRequest;
 import com.progettomedusa.player_sheets_service.model.response.*;
 import com.progettomedusa.player_sheets_service.service.PlayerSheetsService;
-import com.progettomedusa.player_sheets_service.config.PlayerSheetsApplicationProperties;
 import com.progettomedusa.player_sheets_service.model.converter.PlayerSheetConverter;
 import com.progettomedusa.player_sheets_service.model.exception.CreatePlayerSheetException;
-import com.progettomedusa.player_sheets_service.util.Tools;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 import static com.progettomedusa.player_sheets_service.util.Constants.*;
 
@@ -60,22 +57,21 @@ public class PlayerSheetsController {
 
 
     @PostMapping("/player-sheet/save")
-    public ResponseEntity<CreatePlayerSheetRequestResponse> createPlayerSheet(@Valid @RequestBody CreatePlayerSheetRequest createPlayerSheetRequest) throws CreatePlayerSheetException {
+    public ResponseEntity<CreatePlayerSheetResponse> createPlayerSheet(@Valid @RequestBody CreatePlayerSheetRequest createPlayerSheetRequest) throws CreatePlayerSheetException {
         log.info("Controller - createPlayerSheet START with request -> {}", createPlayerSheetRequest);
         PlayerSheetDTO playerSheetDTO = playerSheetConverter.createRequestToPlayerSheetDTO(createPlayerSheetRequest);
-        CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse = playerSheetsService.createPlayerSheet(playerSheetDTO);
-        log.info("Controller - createPlayerSheet END with response -> {}", createPlayerSheetRequestResponse);
-        return new ResponseEntity<>(createPlayerSheetRequestResponse, HttpStatus.ACCEPTED);
+        CreatePlayerSheetResponse createPlayerSheetResponse = playerSheetsService.createPlayerSheet(playerSheetDTO);
+        log.info("Controller - createPlayerSheet END with response -> {}", createPlayerSheetResponse);
+        return new ResponseEntity<>(createPlayerSheetResponse, HttpStatus.ACCEPTED);
     }
 
 
     @PutMapping("/player-sheet/update/{id}")
-    public ResponseEntity<UpdatePlayerSheetResponse> updatePlayerSheet(@RequestBody UpdatePlayerSheetRequest updatePlayerSheetRequest) {
+    public ResponseEntity<UpdatePlayerSheetResponse> updatePlayerSheet(@RequestBody UpdatePlayerSheetRequest updatePlayerSheetRequest) throws UpdatePlayerSheetException {
         log.info("Controller - updatePlayerSheet START with id -> {}", updatePlayerSheetRequest);
         PlayerSheetDTO playerSheetDTO = playerSheetConverter.updatePlayerSheetRequestToDto(updatePlayerSheetRequest);
         UpdatePlayerSheetResponse updatePlayerSheetResponse = playerSheetsService.updatePlayerSheet(playerSheetDTO);
         log.info("Controller - updatePlayerSheet END with response -> {}", updatePlayerSheetResponse);
-
         return new ResponseEntity<>(updatePlayerSheetResponse, HttpStatus.OK);
     }
 

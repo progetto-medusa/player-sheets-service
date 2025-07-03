@@ -7,7 +7,6 @@ import com.progettomedusa.player_sheets_service.model.dto.componentDTO.*;
 import com.progettomedusa.player_sheets_service.model.po.componentPO.*;
 import com.progettomedusa.player_sheets_service.model.request.*;
 import com.progettomedusa.player_sheets_service.model.response.*;
-import com.progettomedusa.player_sheets_service.model.request.componentRequest.*;
 import com.progettomedusa.player_sheets_service.model.response.componentResponse.*;
 import com.progettomedusa.player_sheets_service.util.Tools;
 import lombok.RequiredArgsConstructor;
@@ -28,26 +27,26 @@ public class PlayerSheetConverter {
     private final PlayerSheetsApplicationProperties playerSheetsApplicationProperties;
 
 
-    public CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse(PlayerSheetPO playerSheetPO) {
-        CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse = new CreatePlayerSheetRequestResponse();
-        createPlayerSheetRequestResponse.setMessage("Creation done");
-        createPlayerSheetRequestResponse.setDomain(playerSheetsApplicationProperties.getName());
-        createPlayerSheetRequestResponse.setTimestamp(tools.getInstant());
+    public CreatePlayerSheetResponse createPlayerSheetResponse(PlayerSheetPO playerSheetPO) {
+        CreatePlayerSheetResponse createPlayerSheetResponse = new CreatePlayerSheetResponse();
+        createPlayerSheetResponse.setMessage("Creation done");
+        createPlayerSheetResponse.setDomain(playerSheetsApplicationProperties.getName());
+        createPlayerSheetResponse.setTimestamp(tools.getInstant());
 
-        createPlayerSheetRequestResponse.setName(playerSheetPO.getName());
-        createPlayerSheetRequestResponse.setRace(playerSheetPO.getRace());
-        createPlayerSheetRequestResponse.setCharacterClass(playerSheetPO.getCharacterClass());
-        createPlayerSheetRequestResponse.setBackground(playerSheetPO.getBackground());
-        createPlayerSheetRequestResponse.setExperience(playerSheetPO.getExperience());
-        createPlayerSheetRequestResponse.setLevel(playerSheetPO.getLevel());
-        createPlayerSheetRequestResponse.setAlignment(playerSheetPO.getAlignment());
+        createPlayerSheetResponse.setName(playerSheetPO.getName());
+        createPlayerSheetResponse.setRace(playerSheetPO.getRace());
+        createPlayerSheetResponse.setCharacterClass(playerSheetPO.getCharacterClass());
+        createPlayerSheetResponse.setBackground(playerSheetPO.getBackground());
+        createPlayerSheetResponse.setExperience(playerSheetPO.getExperience());
+        createPlayerSheetResponse.setLevel(playerSheetPO.getLevel());
+        createPlayerSheetResponse.setAlignment(playerSheetPO.getAlignment());
 
-        createPlayerSheetRequestResponse.setStats(new StatsResponse(
+        createPlayerSheetResponse.setStats(new StatsResponse(
                 playerSheetPO.getStatsPO().getStrength(), playerSheetPO.getStatsPO().getDexterity(),
                 playerSheetPO.getStatsPO().getConstitution(), playerSheetPO.getStatsPO().getIntelligence(),
                 playerSheetPO.getStatsPO().getWisdom(), playerSheetPO.getStatsPO().getCharisma()
         ));
-        createPlayerSheetRequestResponse.setStatus(new StatusResponse(
+        createPlayerSheetResponse.setStatus(new StatusResponse(
                 playerSheetPO.getStatusPO().getArmorClass(), playerSheetPO.getStatusPO().getSpeed(),
                 playerSheetPO.getStatusPO().getInitiative(), playerSheetPO.getStatusPO().getMaxHitPoints(),
                 playerSheetPO.getStatusPO().getCurrentHitPoints(), playerSheetPO.getStatusPO().getTempHitPoints(),
@@ -55,7 +54,7 @@ public class PlayerSheetConverter {
                 playerSheetPO.getStatusPO().getWeapons(), playerSheetPO.getStatusPO().getTools(),
                 playerSheetPO.getStatusPO().getLanguages()
         ));
-        createPlayerSheetRequestResponse.setSkills(new SkillsResponse(
+        createPlayerSheetResponse.setSkills(new SkillsResponse(
                 playerSheetPO.getSkillsPO().getAcrobatics(), playerSheetPO.getSkillsPO().getAnimalHandling(), playerSheetPO.getSkillsPO().getArcana(),
                 playerSheetPO.getSkillsPO().getAthletics(),playerSheetPO.getSkillsPO().getDeception(), playerSheetPO.getSkillsPO().getHistory(),
                 playerSheetPO.getSkillsPO().getInsight(), playerSheetPO.getSkillsPO().getIntimidation(), playerSheetPO.getSkillsPO().getInvestigation(),
@@ -63,24 +62,24 @@ public class PlayerSheetConverter {
                 playerSheetPO.getSkillsPO().getPerformance(), playerSheetPO.getSkillsPO().getPersuasion(), playerSheetPO.getSkillsPO().getReligion(),
                 playerSheetPO.getSkillsPO().getSightOfHand(), playerSheetPO.getSkillsPO().getStealth(), playerSheetPO.getSkillsPO().getSurvival()
         ));
-        createPlayerSheetRequestResponse.setSavingThrows(new SavingThrowsResponse(
+        createPlayerSheetResponse.setSavingThrows(new SavingThrowsResponse(
                 playerSheetPO.getSavingThrowsPO().isSavingThrow1(), playerSheetPO.getSavingThrowsPO().isSavingThrow2(),
                 playerSheetPO.getSavingThrowsPO().isSavingThrow3()
         ));
-        createPlayerSheetRequestResponse.setAttacks(new AttacksResponse(
+        createPlayerSheetResponse.setAttacks(new AttacksResponse(
                 playerSheetPO.getAttacksPO().getAttack1Name(), playerSheetPO.getAttacksPO().getAttack1Bonus(), playerSheetPO.getAttacksPO().getAttack1Damage(),
                 playerSheetPO.getAttacksPO().getAttack2Name(), playerSheetPO.getAttacksPO().getAttack2Bonus(), playerSheetPO.getAttacksPO().getAttack2Damage(),
                 playerSheetPO.getAttacksPO().getAttack3Name(), playerSheetPO.getAttacksPO().getAttack3Bonus(), playerSheetPO.getAttacksPO().getAttack3Damage()
         ));
-        createPlayerSheetRequestResponse.setCantrips(new CantripsResponse(
+        createPlayerSheetResponse.setCantrips(new CantripsResponse(
                 playerSheetPO.getCantripsPO().getCantrip1(), playerSheetPO.getCantripsPO().getCantrip2(),
                 playerSheetPO.getCantripsPO().getCantrip3(), playerSheetPO.getCantripsPO().getCantrip4()
         ));
-        createPlayerSheetRequestResponse.setSpellcasting(new SpellcastingResponse(
+        createPlayerSheetResponse.setSpellcasting(new SpellcastingResponse(
                 playerSheetPO.getSpellcastingPO().getSpellcastingClass(), playerSheetPO.getSpellcastingPO().getSpellcastingAbility(),
                 playerSheetPO.getSpellcastingPO().getSpellSaveDC(), playerSheetPO.getSpellcastingPO().getSpellAttackBonus()
         ));
-        createPlayerSheetRequestResponse.setSpellSlots(new SpellSlotsResponse(
+        createPlayerSheetResponse.setSpellSlots(new SpellSlotsResponse(
                 playerSheetPO.getSpellSlotsPO().getSpellSlots1(), playerSheetPO.getSpellSlotsPO().isSpellSlots1Used(),
                 playerSheetPO.getSpellSlotsPO().getSpellSlots2(), playerSheetPO.getSpellSlotsPO().isSpellSlots2Used(),
                 playerSheetPO.getSpellSlotsPO().getSpellSlots3(), playerSheetPO.getSpellSlotsPO().isSpellSlots3Used(),
@@ -91,29 +90,29 @@ public class PlayerSheetConverter {
                 playerSheetPO.getSpellSlotsPO().getSpellSlots8(), playerSheetPO.getSpellSlotsPO().isSpellSlots8Used(),
                 playerSheetPO.getSpellSlotsPO().getSpellSlots9(), playerSheetPO.getSpellSlotsPO().isSpellSlots9Used()
         ));
-        createPlayerSheetRequestResponse.setCurrency(new CurrencyResponse(
+        createPlayerSheetResponse.setCurrency(new CurrencyResponse(
                 playerSheetPO.getCurrencyPO().getCopperCurrency(), playerSheetPO.getCurrencyPO().getBronzeCurrency(),
                 playerSheetPO.getCurrencyPO().getSilverCurrency(), playerSheetPO.getCurrencyPO().getGoldCurrency(),
                 playerSheetPO.getCurrencyPO().getPlatinumCurrency()
         ));
-        createPlayerSheetRequestResponse.setEquipments(new EquipmentsResponse(
+        createPlayerSheetResponse.setEquipments(new EquipmentsResponse(
                 playerSheetPO.getEquipmentsPO().getEquipment1(), playerSheetPO.getEquipmentsPO().getEquipment2(),
                 playerSheetPO.getEquipmentsPO().getEquipment3(), playerSheetPO.getEquipmentsPO().getEquipment4(),
                 playerSheetPO.getEquipmentsPO().getEquipment5()
         ));
-        createPlayerSheetRequestResponse.setPassiveStats(new PassiveStatsResponse(
+        createPlayerSheetResponse.setPassiveStats(new PassiveStatsResponse(
                 playerSheetPO.getPassiveStatsPO().getInspiration(), playerSheetPO.getPassiveStatsPO().getProficiencyBonus(),
                 playerSheetPO.getPassiveStatsPO().getPassivePerception()
         ));
-        createPlayerSheetRequestResponse.setPersonality(new PersonalityResponse(
+        createPlayerSheetResponse.setPersonality(new PersonalityResponse(
                 playerSheetPO.getPersonalityPO().getPersonalityTraits(), playerSheetPO.getPersonalityPO().getIdeals(),
                 playerSheetPO.getPersonalityPO().getBonds(), playerSheetPO.getPersonalityPO().getFlaws(),
                 playerSheetPO.getPersonalityPO().getFeature1(), playerSheetPO.getPersonalityPO().getFeature2(),
                 playerSheetPO.getPersonalityPO().getFeature3(), playerSheetPO.getPersonalityPO().getNotes(),
                 playerSheetPO.getPersonalityPO().getBackstory()
         ));
-        log.info("UserConverter - createPlayerSheetRequestResponse END with response -> {}", createPlayerSheetRequestResponse);
-        return createPlayerSheetRequestResponse;}
+        log.info("UserConverter - createPlayerSheetRequestResponse END with response -> {}", createPlayerSheetResponse);
+        return createPlayerSheetResponse;}
 
 
     public PlayerSheetDTO createRequestToPlayerSheetDTO(CreatePlayerSheetRequest createPlayerSheetRequest){
@@ -203,14 +202,14 @@ public class PlayerSheetConverter {
 
 
 
-    public CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse(Exception e){
-        CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse = new CreatePlayerSheetRequestResponse();
-        createPlayerSheetRequestResponse.setMessage(e.getMessage());
-        createPlayerSheetRequestResponse.setDomain(playerSheetsApplicationProperties.getName());
-        createPlayerSheetRequestResponse.setTimestamp(tools.getInstant());
-        createPlayerSheetRequestResponse.setDetailed(BASE_ERROR_DETAILS);
-        log.info("PlayerSheetConverter - createPlayerSheetRequestResponse END with createPlayerSheetRequestResponse -> {}", createPlayerSheetRequestResponse);
-        return createPlayerSheetRequestResponse;
+    public CreatePlayerSheetResponse createPlayerSheetResponse(Exception e){
+        CreatePlayerSheetResponse createPlayerSheetResponse = new CreatePlayerSheetResponse();
+        createPlayerSheetResponse.setMessage(e.getMessage());
+        createPlayerSheetResponse.setDomain(playerSheetsApplicationProperties.getName());
+        createPlayerSheetResponse.setTimestamp(tools.getInstant());
+        createPlayerSheetResponse.setDetailed(BASE_ERROR_DETAILS);
+        log.info("PlayerSheetConverter - createPlayerSheetRequestResponse END with createPlayerSheetRequestResponse -> {}", createPlayerSheetResponse);
+        return createPlayerSheetResponse;
     }
 
     public PlayerSheetPO dtoToPo(PlayerSheetDTO playerSheetDTO) {
@@ -218,10 +217,10 @@ public class PlayerSheetConverter {
         if(playerSheetPO.getId() != null){
             playerSheetPO.setId(Long.valueOf(playerSheetPO.getId()));
         }
-        CreatePlayerSheetRequestResponse createPlayerSheetRequestResponse = new CreatePlayerSheetRequestResponse();
-        createPlayerSheetRequestResponse.setMessage("Creation done");
-        createPlayerSheetRequestResponse.setDomain(playerSheetsApplicationProperties.getName());
-        createPlayerSheetRequestResponse.setTimestamp(tools.getInstant());
+        CreatePlayerSheetResponse createPlayerSheetResponse = new CreatePlayerSheetResponse();
+        createPlayerSheetResponse.setMessage("Creation done");
+        createPlayerSheetResponse.setDomain(playerSheetsApplicationProperties.getName());
+        createPlayerSheetResponse.setTimestamp(tools.getInstant());
         playerSheetPO.setName(playerSheetDTO.getName());
         playerSheetPO.setRace(playerSheetDTO.getRace());
         playerSheetPO.setCharacterClass(playerSheetDTO.getCharacterClass());
@@ -608,6 +607,16 @@ public class PlayerSheetConverter {
         updatePlayerSheetResponse.setSheet(playerSheetResponse);
 
         log.info("PlayerSheetConverter - playerSheetToUpdateResponse END with updatePlayerSheetResponse -> {}", updatePlayerSheetResponse);
+        return updatePlayerSheetResponse;
+    }
+
+    public UpdatePlayerSheetResponse updatePlayerSheetResponse(Exception e){
+        UpdatePlayerSheetResponse updatePlayerSheetResponse = new UpdatePlayerSheetResponse();
+        updatePlayerSheetResponse.setMessage(e.getMessage());
+        updatePlayerSheetResponse.setDomain(playerSheetsApplicationProperties.getName());
+        updatePlayerSheetResponse.setTimestamp(tools.getInstant());
+        updatePlayerSheetResponse.setDetailed(BASE_ERROR_DETAILS);
+        log.info("PlayerSheetConverter - updatePlayerSheetRequestResponse END with createPlayerSheetRequestResponse -> {}", updatePlayerSheetResponse);
         return updatePlayerSheetResponse;
     }
 

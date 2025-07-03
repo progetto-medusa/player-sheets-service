@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 public class PersonalityResponse {
 
-    @JsonProperty
+    @JsonProperty ("personality-traits")
     private String personalityTraits;
     @JsonProperty
     private String ideals;

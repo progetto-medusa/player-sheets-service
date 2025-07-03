@@ -1,6 +1,5 @@
 package com.progettomedusa.player_sheets_service.model.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.progettomedusa.player_sheets_service.model.response.componentResponse.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +12,7 @@ import lombok.Data;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreatePlayerSheetRequestResponse extends RestResponse {
+public class CreatePlayerSheetResponse extends RestResponse {
     private String name;
     private String race;
     private String characterClass;
